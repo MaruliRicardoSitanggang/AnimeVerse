@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:animeverse/screens/detail_screen.dart';
-import 'package:animeverse/screens/favorite_screen.dart';
-import 'package:animeverse/screens/home_screen.dart';
-import 'package:animeverse/screens/profile_screen.dart';
-import 'package:animeverse/screens/signin_screen.dart';
-import 'package:animeverse/screens/signup_screen.dart';
+import 'package:animeverse/providers/app_state_provider.dart';
+import 'package:provider/provider.dart';
+
+import 'config/routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,16 +11,17 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Anime Verse',
-      theme: ThemeData(
-        fontFamily: 'Urbanist',
+    return ChangeNotifierProvider(
+      create: (_) => AppStateProvider(),
+      child: MaterialApp.router(
+        title: 'Anime Verse',
+        theme: ThemeData(fontFamily: 'Urbanist'),
+        routerConfig:
+        createRouter(),
+        debugShowCheckedModeBanner: false,
       ),
-      home: const SignInScreen(),
-      debugShowCheckedModeBanner: false,
     );
   }
 }
